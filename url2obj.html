@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>url参数解析工具</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/styles/github.min.css">
+    <style>
+        .container {
+            height: calc(100vh - 20px);
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: "left right";
+            grid-gap: 1px 1px;
+        }
+
+        .left {
+            grid-area: left;
+        }
+
+        .right {
+            grid-area: right;
+        }
+
+        .textarea {
+            height: calc(100vh - 20px);
+            width: 100%;
+            line-height: 20px;
+            padding: 9px 8px;
+            border: 1px solid #d0d0d5;
+            border-radius: 4px;
+            background-color: #fff;
+            outline: 0;
+            color: #4c5161;
+            font-size: 14px;
+            transition: border-color .15s, background-color .15s;
+            word-break: break-all;
+            vertical-align: top;
+            resize: none;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+
+        .hljs {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="left"><textarea class="textarea" id="text">https://www.google.com/search?q=react&oq=react&aqs=chrome..69i57j35i39j69i60l5j69i65.1835j1j7&sourceid=chrome&ie=UTF-8</textarea>
+    </div>
+    <div class="right">
+        <pre><code class="javascript" id="code"></code></pre>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script>
+    function url2obj(url) {
+        let obj = {}
+        const str = url.split("?")[1]
+        if (!str) return obj
+        for (let [key, value] of (new URLSearchParams(str).entries())) {
+            obj[key] = value;
+        }
+        return obj
+    }
+
+    text.addEventListener("keyup", (e) => {
+        const value = e.target.value
+        if (!value) {
+            code.innerHTML = ""
+            return
+        }
+        code.innerHTML = JSON.stringify(url2obj(value), null, 2);
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    })
+
+    code.innerHTML = JSON.stringify(url2obj(text.value), null, 2)
+</script>
+</body>
+</html>
