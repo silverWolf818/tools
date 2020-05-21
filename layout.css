@@ -39,3 +39,39 @@ pre {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
+.container {
+    height: calc(100vh - 20px);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "left right";
+    grid-gap: 1px 1px;
+}
+
+.left {
+    grid-area: left;
+}
+
+.right {
+    grid-area: right;
+}
+
+textarea {
+    height: calc(100vh - 20px);
+    width: 100%;
+    line-height: 20px;
+    padding: 9px 8px;
+    border: 1px solid #d0d0d5;
+    border-radius: 4px;
+    background-color: #fff;
+    outline: 0;
+    color: #4c5161;
+    font-size: 14px;
+    transition: border-color .15s, background-color .15s;
+    word-break: break-all;
+    vertical-align: top;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
+}
